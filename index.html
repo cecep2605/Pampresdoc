@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <!-- BAGIAN 01 - METADATA HALAMAN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jam Digital</title>
+
+  <style>
+    /* BAGIAN 01 - PENGATURAN DASAR */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* BAGIAN 02 - BACKGROUND */
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    #background-next {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      z-index: 0;
+    }
+
+    /* BAGIAN 03 - OVERLAY */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.52);
+      z-index: 1;
+    }
+
+    /* BAGIAN 04 - KERANGKA DASHBOARD */
+    .dashboard {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+    }
+
+    /* BAGIAN 05 - HEADER DAN IDENTITAS DEPARTEMEN */
+    .header {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 4vw;
+      background: rgba(8, 10, 12, 0.78);
+      border-bottom: 1px solid rgba(218, 165, 32, 0.65);
+    }
+
+    .department-brand {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .department-info {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .department-info h1 {
+      color: #e3bd68;
+      font-size: 34px;
+      font-size: 2.2vw;
+      font-weight: bold;
+      line-height: 1.15;
+    }
+
+    .department-info p {
+      margin-top: 5px;
+      font-size: 18px;
+      font-size: 1.15vw;
+      letter-spacing: 0.12em;
+    }
+
+    /* BAGIAN 06 - JAM DIGITAL */
+    .jam {
+      flex: 0 0 auto;
+      margin-left: 24px;
+      color: #f0d38b;
+      font-size: 68px;
+      font-size: 4.8vw;
+      font-weight: bold;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .jam.clock-tick {
+      animation: clock-tick 0.28s ease-out;
+    }
+
+    @keyframes clock-tick {
+      from {
+        opacity: 0.78;
+        transform: translateY(2px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* BAGIAN 07 - TANGGAL */
+    .info {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 13px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      color: #f0d38b;
+      font-size: 23px;
+      font-size: 1.5vw;
+    }
+
+    /* BAGIAN 08 - JUDUL UTAMA */
+    .hero {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      max-width: 100%;
+      color: #fff;
+      font-size: 72px;
+      font-size: 5vw;
+      line-height: 1.12;
+      letter-spacing: 0.04em;
+      text-shadow: 2px 3px 12px rgba(0, 0, 0, 0.9);
+    }
+
+    /* BAGIAN 09 - RUNNING TEXT */
+    .running {
+      flex: 0 0 auto;
+      width: 100%;
+      padding: 12px 20px;
+      background: rgba(5, 7, 9, 0.92);
+      border-top: 2px solid #b18a38;
+      color: #fff;
+      font-size: 21px;
+      font-size: 1.35vw;
+      line-height: 1.35;
+    }
+
+    marquee {
+      width: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #background-next {
+        transition: none;
+      }
+
+      .jam.clock-tick {
+        animation: none;
+      }
+    }
+
+    /* BAGIAN 10 - RESPONSIF LAYAR MENENGAH */
+    @media (min-width: 761px) and (max-width: 1100px) {
+      .department-info h1 {
+        font-size: 27px;
+      }
+
+      .department-info p {
+        font-size: 15px;
+      }
+
+      .jam {
+        font-size: 54px;
+      }
+
+      .info {
+        font-size: 20px;
+      }
+
+      .hero h2 {
+        font-size: 50px;
+      }
+
+      .running {
+        font-size: 18px;
+      }
+    }
+
+    /* BAGIAN 11 - RESPONSIF LAYAR SEMPIT */
+    @media (max-width: 760px) {
+      .header {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px 20px;
+        text-align: center;
+      }
+
+      .department-brand {
+        width: 100%;
+      }
+
+      .department-info h1 {
+        font-size: 28px;
+      }
+
+      .department-info p {
+        font-size: 15px;
+      }
+
+      .jam {
+        margin: 12px 0 0;
+        font-size: 52px;
+      }
+
+      .info {
+        font-size: 19px;
+      }
+
+      .hero h2 {
+        font-size: 42px;
+      }
+
+      .running {
+        font-size: 17px;
+      }
+    }
+
+    /* BAGIAN 12 - RESPONSIF TINGGI LAYAR PENDEK */
+    @media (max-height: 600px) {
+      .header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .jam {
+        font-size: 48px;
+      }
+
+      .info {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 19px;
+      }
+
+      .hero {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .hero h2 {
+        font-size: 48px;
+      }
+
+      .running {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 17px;
+      }
+    }
+
+    /* BAGIAN 13 - RESPONSIF LAYAR SEMPIT DAN PENDEK */
+    @media (max-height: 600px) and (max-width: 760px) {
+      .header {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+
+      .department-info h1 {
+        font-size: 24px;
+      }
+
+      .department-info p {
+        font-size: 13px;
+      }
+
+      .jam {
+        margin: 0 0 0 12px;
+        font-size: 40px;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BAGIAN 02 - BACKGROUND SLIDESHOW -->
+  <div id="background"></div>
+  <div id="background-next"></div>
+
+  <!-- BAGIAN 03 - OVERLAY GELAP -->
+  <div class="overlay"></div>
+
+  <!-- BAGIAN 04 - KERANGKA DASHBOARD -->
+  <div class="dashboard">
+    <!-- BAGIAN 05 - HEADER DAN IDENTITAS DEPARTEMEN -->
+    <header class="header">
+      <div class="department-brand">
+        <div class="department-info">
+          <h1>Departemen Pengamanan Bandung</h1>
+          <p>PAMPRESDOC</p>
+        </div>
+      </div>
+
+      <!-- BAGIAN 06 - JAM DIGITAL -->
+      <div id="jam" class="jam">00:00:00</div>
+    </header>
+
+    <!-- BAGIAN 07 - TANGGAL -->
+    <div class="info">
+      <time id="tanggal"></time>
+    </div>
+
+    <!-- BAGIAN 08 - JUDUL UTAMA -->
+    <main class="hero">
+      <h2>PAMPRESDOC</h2>
+    </main>
+
+    <!-- BAGIAN 09 - RUNNING TEXT -->
+    <div class="running">
+      <marquee scrollamount="8">
+        Selamat datang di Divisi Pengamanan PT Pindad | AKHLAK ( Amanah, Kompeten, Loyal, Adaptif, Kolaboratif ) |
+        Pengamanan Bukan Sekedar Tugas, Melainkan Amanah Untuk Memastikan Kehidupan Berjalan Lancar Aman dan Tanpa
+        Gangguan |
+        Keamanan Yang Andal Dibangun Dari Perencanaan Matang, Pengawasan Ketat dan Kesadaran Bersama, Bukan Hanya Dari
+        Peralatan Semata | Kerjasama Yang Erat dan Komunikasi Yang Cepat Adalah Kunci Mengatasi Segala Ancaman Sebelum
+        Berkembang
+        Menjadi Bahaya Nyata.
+      </marquee>
+    </div>
+  </div>
+
+  <script>
+    var backgrounds = [
+      "pampresdoc1.jpeg", "pampresdoc2.jpeg", "pampresdoc3.jpeg", "pampresdoc4.jpeg", "pampresdoc5.jpeg",
+      "pampresdoc6.jpeg", "pampresdoc7.jpeg", "pampresdoc8.jpeg", "pampresdoc9.jpeg", "pampresdoc10.jpeg"
+    ];
+    var backgroundElement = document.getElementById("background");
+    var nextBackgroundElement = document.getElementById("background-next");
+    var backgroundIndex = 0;
+    var isBackgroundTransitioning = false;
+    var clockElement = document.getElementById("jam");
+    var previousTime = clockElement.innerHTML;
+    backgroundElement.style.backgroundImage = "url('" + backgrounds[backgroundIndex] + "')";
+
+    function changeBackground() {
+      if (isBackgroundTransitioning) {
+        return;
+      }
+
+      var nextIndex = (backgroundIndex + 1) % backgrounds.length;
+      var nextImage = new Image();
+
+      nextImage.onload = function () {
+        isBackgroundTransitioning = true;
+        nextBackgroundElement.style.backgroundImage = "url('" + backgrounds[nextIndex] + "')";
+        nextBackgroundElement.offsetWidth;
+        nextBackgroundElement.style.opacity = "1";
+
+        setTimeout(function () {
+          backgroundElement.style.backgroundImage = "url('" + backgrounds[nextIndex] + "')";
+          nextBackgroundElement.style.opacity = "0";
+          backgroundIndex = nextIndex;
+          isBackgroundTransitioning = false;
+        }, 1250);
+      };
+
+      nextImage.onerror = function () {
+        console.error("Gagal memuat background: " + backgrounds[nextIndex]);
+      };
+
+      nextImage.src = backgrounds[nextIndex];
+    }
+
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+
+      var currentTime =
+        (hours < 10 ? "0" : "") + hours + ":" +
+        (minutes < 10 ? "0" : "") + minutes + ":" +
+        (seconds < 10 ? "0" : "") + seconds;
+
+      clockElement.innerHTML = currentTime;
+
+      if (currentTime !== previousTime) {
+        clockElement.className = "jam";
+        clockElement.offsetWidth;
+        clockElement.className = "jam clock-tick";
+        previousTime = currentTime;
+      }
+    }
+
+    function updateDate() {
+      var now = new Date();
+      var weekdays = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      var months = [
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+      ];
+
+      document.getElementById("tanggal").innerHTML =
+        weekdays[now.getDay()] + ", " + now.getDate() + " " +
+        months[now.getMonth()] + " " + now.getFullYear();
+    }
+
+    changeBackground();
+    setInterval(changeBackground, 10000);
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    updateDate();
+    setInterval(updateDate, 60000);
+  </script>
+</body>
+
+</html>
